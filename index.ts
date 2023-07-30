@@ -4,7 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 // routes
-// import uploadRouter from "./routes/uploadRouter";
+import uploadRouter from "./routes/uploadRouter.js";
 dotenv.config();
 const app: Express = express();
 
@@ -18,7 +18,7 @@ app.use(
 console.log("hii.");
 
 app.use(express.json());
-// app.use("/api/uploads", uploadRouter);
+app.use("/api/uploads", uploadRouter);
 // app.use("/api/user", userRouter);
 // app.use("/api/transform", transformRouter);
 // app.use("/api/collageRouter", collageRouter);

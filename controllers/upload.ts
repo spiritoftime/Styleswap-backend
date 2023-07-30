@@ -2,7 +2,7 @@ import {
   deleteCloudinaryImage,
   uploadCloudinaryImage,
   uploadOptions,
-} from "../utils/cloudinary";
+} from "../utils/cloudinary.js";
 import express, { Request, Response } from "express";
 
 // takes in a base64 string from data and userId from params
@@ -13,7 +13,7 @@ export const uploadImage = async (req: Request, res: Response) => {
     unique_filename: false,
     folder: userId, // firebase user.uid
   };
-  const image = req.body.imageUri;
+  const image = req.body.file;
   try {
     const result = await uploadCloudinaryImage(image, uploadOptions);
     res.status(201).json(result);
