@@ -11,7 +11,7 @@ app.use(
     credentials: true,
   })
 );
-const image = "./images/attempt.PNG";
+
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -27,6 +27,8 @@ const uploadOptions = {
   unique_filename: false,
   folder: "FG9mLlC73rbYYQpnbQvsjk1Orp13",
 };
+// can be a url or a file path or a base64 string
+const image = "./images/attempt.PNG";
 async function uploadImage() {
   const result = await cloudinary.uploader.upload(
     image,
@@ -39,7 +41,19 @@ async function uploadImage() {
   );
   return result;
 }
-uploadImage().then((res) => console.log(res));
+// uploadImage().then((res) => console.log(res));
+async function deleteImage(publicId) {
+  try {
+    const result = await cloudinary.uploader.destroy(publicId);
+    console.log("Image deleted from Cloudinary:", result.result);
+  } catch (error) {
+    console.error("Error deleting image from Cloudinary:", error);
+    throw error;
+  }
+}
+deleteImage("FG9mLlC73rbYYQpnbQvsjk1Orp13/attempt").then((res) =>
+  console.log(res)
+);
 const port =
   process.env.NODE_ENV === "production"
     ? process.env.PROD_PORT
