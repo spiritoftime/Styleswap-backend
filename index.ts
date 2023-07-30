@@ -2,12 +2,15 @@ import express, { Express } from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
+import formidable from "express-formidable";
 
 // routes
 import uploadRouter from "./routes/uploadRouter.js";
+import userRouter from "./routes/userRouter.js";
 dotenv.config();
 const app: Express = express();
-
+app.use(formidable());
+//
 app.use(cookieParser());
 app.use(
   cors({
@@ -18,8 +21,9 @@ app.use(
 console.log("hii.");
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use("/api/uploads", uploadRouter);
-// app.use("/api/user", userRouter);
+app.use("/api/user", userRouter);
 // app.use("/api/transform", transformRouter);
 // app.use("/api/collageRouter", collageRouter);
 
