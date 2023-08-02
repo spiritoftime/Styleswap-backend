@@ -46,7 +46,12 @@ export async function uploadCloudinaryImage(
   const result = await cloudinary.uploader.upload(image, uploadOptions);
   return result;
 }
-export async function deleteCloudinaryImage(publicId: string) {
-  const result = await cloudinary.uploader.destroy(publicId);
+export async function deleteCloudinaryImages(publicId: string[]) {
+  const result = await cloudinary.api.delete_resources(publicId);
+  return result;
+}
+export async function transformCloudinaryImage(fileName, effect) {
+  console.log("effect", effect);
+  const result = await cloudinary.image(fileName, { effect: effect });
   return result;
 }

@@ -1,6 +1,6 @@
 import {
   convertImageToBaseUri,
-  deleteCloudinaryImage,
+  deleteCloudinaryImages,
   uploadCloudinaryImage,
   uploadOptions,
 } from "../utils/cloudinary.js";
@@ -11,9 +11,12 @@ export const uploadImage = async (req: Request, res: Response) => {
   //req.fields contains non-file fields
   //req.files contains files
   const { userId } = req.params;
-  const image = await convertImageToBaseUri(
-    req.files[Object.keys(req.files)[0]]
-  );
+  let image;
+  if (Object.keys(req.files).length > 0) {
+    image = await convertImageToBaseUri(req.files[Object.keys(req.files)[0]]);
+  } else if (req.fields) {
+    image = req.fields.file;
+  }
   const uploadOptions: uploadOptions = {
     use_filename: true,
     unique_filename: false,
@@ -30,10 +33,11 @@ export const uploadImage = async (req: Request, res: Response) => {
   }
 };
 // takes in a publicId and deletes the image from cloudinary
-export const deleteImage = async (req: Request, res: Response) => {
-  const { publicId } = req.params;
+export const deleteImages = async (req: Request, res: Response) => {
+  const { publicId } = req.body;
   try {
-    const result = await deleteCloudinaryImage(publicId);
+    const result = await deleteCloudinaryImages(publicId);
+    console.log("done");
     res.status(200).json(result);
   } catch (err) {
     console.log(err, "error");
