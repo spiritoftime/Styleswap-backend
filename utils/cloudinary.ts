@@ -7,7 +7,7 @@ import { promisify } from "util";
 // Convert fs.readFile function to a Promise-based version
 const readFileAsync = promisify(fs.readFile);
 
-export const convertImageToBaseUri = async (file: File) => {
+export const convertImageToBaseUri = async (file) => {
   try {
     // Read the file as a Buffer
     const fileBuffer = await readFileAsync(file.path);

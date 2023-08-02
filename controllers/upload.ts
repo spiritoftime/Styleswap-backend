@@ -5,7 +5,36 @@ import {
   uploadOptions,
 } from "../utils/cloudinary.js";
 import express, { Request, Response } from "express";
+import { Fields, Files, EventNames } from "formidable";
+declare global {
+  namespace Express {
+    interface Request {
+      fields?: Fields;
+      files?: Files;
+    }
+  }
+}
+interface ExpressFormidableOptions {
+  encoding?: string;
+  uploadDir?: string;
+  keepExtensions?: boolean;
+  type?: "multipart" | "urlencoded";
+  maxFileSize?: number;
+  maxFieldsSize?: number;
+  maxFields?: number;
+  hash?: boolean | "sha1" | "md5";
+  multiples?: boolean;
+}
 
+interface ExpressFormidableEvents {
+  event: EventNames;
+  action: (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction,
+    ...formidableParameters: any[]
+  ) => void;
+}
 // takes in a base64 string from data and userId from params
 export const uploadImage = async (req: Request, res: Response) => {
   //req.fields contains non-file fields
