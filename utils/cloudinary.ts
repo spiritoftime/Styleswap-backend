@@ -40,7 +40,7 @@ cloudinary.config({
 // };
 // can be a url or a file path or a base64 string
 export async function uploadCloudinaryImage(
-  image: File,
+  image: string,
   uploadOptions: uploadOptions
 ) {
   const result = await cloudinary.uploader.upload(image, uploadOptions);
