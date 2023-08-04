@@ -30,9 +30,6 @@ app.use("/api/transform", transformRouter);
 // deleteImage("FG9mLlC73rbYYQpnbQvsjk1Orp13/attempt").then((res) =>
 //   console.log(res)
 // );
-const port =
-  process.env.NODE_ENV === "production"
-    ? process.env.PROD_PORT
-    : process.env.PORT;
+const port = 3000;
 
 app.listen(port, () => console.log(`server running on port ${port}`));

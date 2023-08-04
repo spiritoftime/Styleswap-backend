@@ -41,6 +41,7 @@ export const uploadImage = async (req: Request, res: Response) => {
   //req.files contains files
   const { userId } = req.params;
   let image;
+  console.log("wtf?");
   if (Object.keys(req.files).length > 0) {
     image = await convertImageToBaseUri(req.files[Object.keys(req.files)[0]]);
   } else if (req.fields) {
