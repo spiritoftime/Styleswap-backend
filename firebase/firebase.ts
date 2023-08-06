@@ -1,9 +1,13 @@
 import admin, { ServiceAccount } from "firebase-admin";
-import serviceAccount from "/etc/secrets/styleswap-firebase.json" assert { type: "json" };
+
 import dotenv from "dotenv";
+
 dotenv.config();
+const serviceAccount = process.env.FIREBASE_CONFIG;
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount as ServiceAccount),
+  credential: admin.credential.cert(
+    JSON.parse(serviceAccount) as ServiceAccount
+  ),
   databaseURL: process.env.FIREBASE_URL,
 });
 export default admin;
