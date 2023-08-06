@@ -14,7 +14,7 @@ const app: Express = express();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "*",
+    origin: ["https://style-swap.vercel.app", "http://127.0.0.1:5173"],
     credentials: true,
   })
 );
