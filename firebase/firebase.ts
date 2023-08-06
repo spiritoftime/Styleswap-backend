@@ -1,5 +1,5 @@
 import admin, { ServiceAccount } from "firebase-admin";
-import serviceAccount from "./styleswap-firebase.json" assert { type: "json" };
+import serviceAccount from "../styleswap-firebase.json" assert { type: "json" };
 import dotenv from "dotenv";
 dotenv.config();
 admin.initializeApp({
