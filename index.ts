@@ -8,6 +8,7 @@ import formidableMiddleware from "express-formidable-v2";
 import uploadRouter from "./routes/uploadRouter.js";
 import userRouter from "./routes/userRouter.js";
 import transformRouter from "./routes/transformRouter.js";
+import { authenticateFirebase } from "./middleware/authenticateFirebase.js";
 dotenv.config();
 const app: Express = express();
 //
@@ -22,6 +23,7 @@ console.log("hii.");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(authenticateFirebase);
 app.use("/api/uploads", formidableMiddleware(), uploadRouter);
 app.use("/api/user", userRouter);
 app.use("/api/transform", transformRouter);
